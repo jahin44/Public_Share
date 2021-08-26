@@ -1,0 +1,12 @@
+﻿@model BuyTicketsModel
+@{
+    ViewData["Title"] = "Buy";
+}
+
+<h1>Buy</h1>
+<form method="post" asp-action="Buy" asp-controller="Customer">
+    Customer Name: <input type="text" asp-for="CustomerName" /><br />
+    Ticket Id: <input type="text" asp-for="TicketId" /><br />
+    <input type="submit" value="Buy" />
+</form>
+
