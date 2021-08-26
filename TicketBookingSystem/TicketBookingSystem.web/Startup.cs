@@ -21,6 +21,7 @@ using TicketBookingSystem.Membership.Entities;
 using TicketBookingSystem.Membership.Services;
 using TicketBookingSystem.System;
 using TicketBookingSystem.System.Contexts;
+using TicketBookingSystem.Membership.Contexts;
 using TicketBookingSystem.web.Data;
 using TicketBookingSystem.web.Models;
 
@@ -71,7 +72,7 @@ namespace TicketBookingSystem.web
         {
             var connectionInfo = GetConnectionStringAndAssemblyName();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<Membership.Contexts.ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionInfo.connectionString, b =>
                 b.MigrationsAssembly(connectionInfo.migrationAssemblyName)));
 
@@ -82,7 +83,7 @@ namespace TicketBookingSystem.web
             // Identity customization started here
             services
                 .AddIdentity<ApplicationUser, Role>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<Membership.Contexts.ApplicationDbContext>()
                 .AddUserManager<UserManager>()
                 .AddRoleManager<RoleManager>()
                 .AddSignInManager<SignInManager>()

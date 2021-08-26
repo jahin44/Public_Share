@@ -1,19 +1,16 @@
-﻿using TicketBookingSystem.Membership.Entities;
-using TicketBookingSystem.web.Models.Account;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
- 
+using TicketBookingSystem.Membership.Entities;
+using TicketBookingSystem.web.Models.Account;
+
 namespace TicketBookingSystem.Controllers
 {
     public class AccountController : Controller
@@ -52,14 +49,14 @@ namespace TicketBookingSystem.Controllers
         {
             model.ReturnUrl ??= Url.Content("~/");
             model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 await _userManager.AddToRoleAsync(user, "Admin");
-                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("view_permission", "true"));
-                
+                //await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("view_permission", "true"));
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
